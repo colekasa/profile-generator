@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
+const generateHTML = require('./src/generateHTML')
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
@@ -37,12 +38,13 @@ let managerPrompt = () => { return inquirer.prompt([
     console.log(employee)
 })
 }
+
 let employeePrompt = () => {
      return inquirer.prompt ([
         {
             type:"list",
             message:"Who else would you like to add to your team profile?",
-            name:"newEmployee",
+            name:"role",
             choices: ["Intern", "Engineer"]
         },
         {
@@ -64,13 +66,13 @@ let employeePrompt = () => {
             type:"input",
             message:"What is your engineer's github?",
             name:"github",
-            when: (list) => list.newEmployee === "Engineer"
+            when: (list) => list.role === "Engineer"
         },
         {
             type:"input",
             message:"What school does your intern attend?",
             name:"school",
-            when: (list) => list.newEmployee === "Intern",
+            when: (list) => list.role === "Intern",
         },
         {
             type: "confirm",
@@ -80,6 +82,7 @@ let employeePrompt = () => {
         }
     ])
     .then((newData) => {
+        console.log(newData)
         let {name, id, email, role, github, school, confirmAddEmployee} = newData
         let employee;
 
@@ -119,14 +122,15 @@ const writeFile = data =>{
 
 managerPrompt()
  .then(employeePrompt)
-//  .then(employees => {
-//     return generateHTML(employees)
-//  })
-//  .then(generateHTML => {
-//     return writeFile(generateHTML)
-//  })
-//  .catch(err => {
-//     console.log(err)
-//  });
+ .then(employees => {
+    console.log(employees)
+    return generateHTML(employees)
+ })
+ .then(pageData => {
+    return writeFile(pageData)
+ })
+ .catch(err => {
+    console.log(err)
+ });
 
 

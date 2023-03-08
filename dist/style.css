@@ -1,0 +1,33 @@
+.body{
+    background-color: rgb(107, 107, 107);
+}
+
+#team{
+    background-color: rgb(66, 66, 185);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+}
+
+.employees{
+    margin-top: 35px;
+}
+
+.role{
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(66, 66, 185);
+    color: white;
+}
+
+.attribute{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
